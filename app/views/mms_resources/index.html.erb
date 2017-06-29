@@ -1,0 +1,18 @@
+<div class="container">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="text-center">
+    <p>Send an MMS message to the number below:</p>
+    <h1 class="twilio-number"><%= @twilio_number %></h1>
+    <p>Incoming messages will be show below:</p>
+    <div class="image-container grid">
+      <% @files.each do |file| %>
+        <% if file.is_image? %>
+          <img width='100%' class='col-md-4' src='<%= file.filename %>' />
+        <% else %>
+          <a width='100%' class='col-md-4' src='<%= file.path %>' />
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>

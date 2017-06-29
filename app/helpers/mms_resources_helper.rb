@@ -1,0 +1,2 @@
+module MmsResourcesHelper
+end

@@ -1,0 +1,22 @@
+<%= form_with(model: mms_resource, local: true) do |form| %>
+  <% if mms_resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mms_resource.errors.count, "error") %> prohibited this mms_resource from being saved:</h2>
+
+      <ul>
+      <% mms_resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :filename %>
+    <%= form.text_field :filename, id: :mms_resource_filename %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
