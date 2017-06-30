@@ -8,11 +8,20 @@ class MmsResourcesController < ApplicationController
     (0..num_media-1).each do |index|
       media_url = params["MediaUrl#{index}"]
       file_type = params["MediaContentType#{index}"]
-      mms_resource = MmsResource.new(filename: "#{filename(media_url)}")
+      message_sid = params["MessageSid"]
+      mms_resource = MmsResource.new(filename: "#{filename(media_url)}#{file_extension(file_type)}")
       IO.copy_stream(open(media_url), mms_resource.path)
 
       mms_resource.save
+      uri = URI.parse(media_url)
+      filename = File.basename(uri.path)
+
+      twilio_client.api.accounts(ENV['TWILIO_ACCOUNT_SID'])
+        .messages(message_sid)
+        .media(filename)
+        .delete
     end
+
     message = num_media <= 0 ? 'Send us an image' : 'Thanks for the 1 images'
     response = Twilio::TwiML::MessagingResponse.new
     response.message message
@@ -33,5 +42,9 @@ class MmsResourcesController < ApplicationController
   def filename(media_url)
     uri = URI.parse(media_url)
     File.basename(uri.path)
+  end
+
+  def twilio_client
+    @_client ||= Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
   end
 end
