@@ -1,7 +1,6 @@
 language: ruby
 rvm:
-  - rvm 2.2.1
-  - rvm 2.2.2
+  - rvm 2.4.1
 
 before_script:
   - psql -c 'create database receive_mms_test;' -U postgres
