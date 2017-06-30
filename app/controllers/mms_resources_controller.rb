@@ -23,7 +23,7 @@ class MmsResourcesController < ApplicationController
   private
 
   def num_media
-    params[:numMedia].to_i
+    params["NumMedia"].to_i
   end
 
   def file_extension(media_type)

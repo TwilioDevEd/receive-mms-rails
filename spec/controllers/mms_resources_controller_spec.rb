@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe MmsResourcesController, type: :controller do
 
   let(:valid_attributes) do
-    { numMedia: num_media,
+    { NumMedia: num_media,
       MediaContentType0: 'image/jpeg',
       MediaUrl0: 'https://c1.staticflickr.com/3/2899/14341091933_1e92e62d12_b.jpg' }
   end
