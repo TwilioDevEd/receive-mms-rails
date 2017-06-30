@@ -10,9 +10,9 @@
         <% if file.is_image? %>
           <img width='100%' class='col-md-4' src='<%= file.filename %>' />
         <% else %>
-          <a width='100%' class='col-md-4' src='<%= file.path %>' />
-          <% end %>
+          <a width='100%' class='col-md-4' src='<%= file.path %>'><%= file.filename %></a>
         <% end %>
+      <% end %>
     </div>
   </div>
 </div>
