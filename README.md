@@ -1,5 +1,11 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Receive MMS: Process MMS messages received by the application using rails
+
 [![Build Status](https://travis-ci.org/TwilioDevEd/receive-mms-rails.svg)](https://travis-ci.org/TwilioDevEd/receive-mms-rails)
+
 [![Coverage Status](https://coveralls.io/repos/github/TwilioDevEd/receive-mms-rails/badge.svg?branch=master)](https://coveralls.io/github/TwilioDevEd/receive-mms-rails?branch=master)
 
 ## Local development
@@ -67,7 +73,7 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
   You will also need to configure Twilio to call your application when calls are received on your `TWILIO_NUMBER`. The voice url should look something like this:
 
   ```
-  http://9a159ccf.ngrok.io/conference/connect/client
+  http://6b5f6b6d.ngrok.io/mms_resources
   ```
 
   ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
@@ -77,27 +83,10 @@ That's it!
 
 ## How to Demo
 
-1. Navigate to `https://<ngrok_subdomain>.ngrok.io` in two different
-   browser tabs or windows.
+1. Send an MMS to your twilio number
 
-   **Notes:**
-   * Remember to use your SSL enabled ngrok url `https`.
-   Failing to do this won't allow you to receive incoming calls.
-   * The application has been tested with [Chrome](https://www.google.com/chrome/)
-   and [Firefox](https://firefox.com). Safari is not supported at the moment.
-
-1. In one window/tab click `Connect as Agent 1` and in the other one click
-   `Connect as Agent 2`. Now both agents are waiting for an incoming call.
-
-1. Dial your [Twilio Number]() to star a call with `Agent 1`. Your `TWILIO_NUMBER`
-   environment variable was set when configuring the application to run.
-
-1. When `Agent 1` answers the call from the client, he/she can dial `Agent 2` in
-   by clicking on the `Dial agent 2 in` button.
-
-1. Once `Agent 2` answers the call all three participants will have joined the same
-   call. After that `Agent 1` can drop the call and leave both the client and `Agent 2`
-   having a pleasant talk.
+1. Access `http://localhost:3000`. You should see a list with all the resources
+sent through your MMS
 
 ## Meta
 
