@@ -9,17 +9,14 @@ class MmsResourcesController < ApplicationController
       media_url = params["MediaUrl#{index}"]
       file_type = params["MediaContentType#{index}"]
       message_sid = params["MessageSid"]
-      mms_resource = MmsResource.new(filename: "#{filename(media_url)}#{file_extension(file_type)}")
+      mms_resource = MmsResource.new(filename: file_name(media_url, file_type))
       IO.copy_stream(open(media_url), mms_resource.path)
 
       mms_resource.save
-      uri = URI.parse(media_url)
-      filename = File.basename(uri.path)
 
-      twilio_client.api.accounts(ENV['TWILIO_ACCOUNT_SID'])
-        .messages(message_sid)
-        .media(filename)
-        .delete
+      sleep(20)
+
+      delete_media(message_sid, media_url)
     end
 
     message = num_media <= 0 ? 'Send us an image' : 'Thanks for the 1 images'
@@ -31,15 +28,29 @@ class MmsResourcesController < ApplicationController
 
   private
 
+  def delete_media(message_sid, media_url)
+    twilio_client.api.accounts(ENV['TWILIO_ACCOUNT_SID'])
+      .messages(message_sid)
+      .media(resource_id(media_url))
+      .delete
+  end
+
   def num_media
     params["NumMedia"].to_i
+  end
+
+  def media_url
+  end
+
+  def file_name(media_url, file_type)
+    "#{resource_id(media_url)}#{file_extension(file_type)}"
   end
 
   def file_extension(media_type)
     Rack::Mime::MIME_TYPES.invert[media_type]
   end
 
-  def filename(media_url)
+  def resource_id(media_url)
     uri = URI.parse(media_url)
     File.basename(uri.path)
   end
