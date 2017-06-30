@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe MmsResourcesController, type: :controller do
 
+
+  before do
+    allow(Twilio::REST::Client).to receive_message_chain(:new,
+                                                         :api,
+                                                         :accounts,
+                                                         :messages,
+                                                         :media,
+                                                         :delete)
+  end
+
   let(:valid_attributes) do
     { NumMedia: num_media,
       MediaContentType0: 'image/jpeg',
@@ -33,6 +43,16 @@ RSpec.describe MmsResourcesController, type: :controller do
         post :create, params: valid_attributes
         expect(response.status)
         expect(response.body).to include('Thanks for the 1 images')
+      end
+
+      it 'deletes media from twilio server' do
+        expect(Twilio::REST::Client).to receive_message_chain(:new,
+                                                              :api,
+                                                              :accounts,
+                                                              :messages,
+                                                              :media,
+                                                              :delete)
+        post :create, params: valid_attributes
       end
     end
 
