@@ -14,8 +14,6 @@ class MmsResourcesController < ApplicationController
 
       mms_resource.save
 
-      sleep(20)
-
       delete_media(message_sid, media_url)
     end
 
@@ -28,11 +26,15 @@ class MmsResourcesController < ApplicationController
 
   private
 
-  def delete_media(message_sid, media_url)
+  def delete_media(message_sid, media_url, repetition=0)
     twilio_client.api.accounts(ENV['TWILIO_ACCOUNT_SID'])
       .messages(message_sid)
       .media(resource_id(media_url))
       .delete
+  rescue Twilio::REST::RestError => error
+    raise error if repetition >= 4
+    sleep 10
+    delete_media(message_sid, media_url, repetition+1)
   end
 
   def num_media
