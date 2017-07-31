@@ -1,6 +1,7 @@
 <a href="https://www.twilio.com">
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
+
 # Receive MMS: Process MMS messages received by the application using rails
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/receive-mms-rails.svg)](https://travis-ci.org/TwilioDevEd/receive-mms-rails)
