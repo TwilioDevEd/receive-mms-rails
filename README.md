@@ -8,7 +8,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/TwilioDevEd/receive-mms-rails/badge.svg?branch=master)](https://coveralls.io/github/TwilioDevEd/receive-mms-rails?branch=master)
 
-Use Twilio to receive SMS and MMS messages. For a step-by-step tutorial see the <a href="https://www.twilio.com/docs/guides/receive-and-download-images-incoming-mms-messages-ruby-rails">twilio docs</a>.
+Use Twilio to receive SMS and MMS messages. For a step-by-step tutorial see the <a href="https://www.twilio.com/docs/guides/receive-and-download-images-incoming-mms-messages-ruby-rails">Twilio docs</a>.
 
 ## Local development
 
