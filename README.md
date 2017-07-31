@@ -1,12 +1,13 @@
 <a href="https://www.twilio.com">
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
-
 # Receive MMS: Process MMS messages received by the application using rails
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/receive-mms-rails.svg)](https://travis-ci.org/TwilioDevEd/receive-mms-rails)
 
 [![Coverage Status](https://coveralls.io/repos/github/TwilioDevEd/receive-mms-rails/badge.svg?branch=master)](https://coveralls.io/github/TwilioDevEd/receive-mms-rails?branch=master)
+
+Use Twilio to receive SMS and MMS messages. For a step-by-step tutorial see the <a href="https://www.twilio.com/docs/guides/receive-and-download-images-incoming-mms-messages-ruby-rails">twilio docs</a>.
 
 ## Local development
 
