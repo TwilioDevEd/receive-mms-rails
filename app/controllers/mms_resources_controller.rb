@@ -27,13 +27,12 @@ class MmsResourcesController < ApplicationController
   end
 
   def delete_media(message_sid, media_url, repetition = 0)
-    twilio_client.api.accounts(ENV.fetch('TWILIO_ACCOUNT_SID'))
-      .messages(message_sid)
-      .media(media_id(media_url))
-      .delete
-  rescue Twilio::REST::RestError => error
-    raise error if repetition >= 4
-    delete_media(message_sid, media_url, repetition + 1)
+    Retriable.retriable(on: Twilio::REST::RestError, tries: 4, base_interval: 2) do
+      twilio_client.api.accounts(ENV.fetch('TWILIO_ACCOUNT_SID'))
+        .messages(message_sid)
+        .media(media_id(media_url))
+        .delete
+    end
   end
 
   def num_media

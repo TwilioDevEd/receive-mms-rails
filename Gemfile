@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'twilio-ruby', '~> 5.3.1'
 gem 'rspec-rails'
 gem 'twitter-bootstrap-rails'
+gem 'retriable', '~> 3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
