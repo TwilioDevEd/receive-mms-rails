@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class MmsResourcesController < ApplicationController
   def index
     @twilio_number = ENV.fetch('TWILIO_NUMBER')
@@ -10,6 +12,7 @@ class MmsResourcesController < ApplicationController
       content_type = params["MediaContentType#{index}"]
       message_sid  = params["MessageSid"]
       mms_resource = MmsResource.new(filename: file_name(media_url, content_type))
+      IO.copy_stream(open(media_url), mms_resource.path)
       delete_media(message_sid, media_url) if mms_resource.save
     end
 

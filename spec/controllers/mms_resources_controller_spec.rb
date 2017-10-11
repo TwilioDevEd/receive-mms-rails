@@ -21,7 +21,7 @@ describe MmsResourcesController, type: :controller do
       {
         NumMedia: 1,
         MediaContentType0: 'image/jpeg',
-        MediaUrl0: 'https://example.com/Media/MEda193cc962923188f017d5bbc8ff119a',
+        MediaUrl0: 'https://c1.staticflickr.com/3/2899/14341091933_1e92e62d12_b.jpg',
         MessageSid: 'MMd48e71771d0e65ec0db7964d261bc6ff'
       }
     end
