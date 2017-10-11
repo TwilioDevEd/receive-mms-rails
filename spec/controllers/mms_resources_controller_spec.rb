@@ -1,76 +1,48 @@
 require 'rails_helper'
 
-RSpec.describe MmsResourcesController, type: :controller do
+describe MmsResourcesController, type: :controller do
+  describe '#index' do
+    let(:files) { [ double(:files) ] }
 
-
-  before do
-    allow(Twilio::REST::Client).to receive_message_chain(:new,
-                                                         :api,
-                                                         :accounts,
-                                                         :messages,
-                                                         :media,
-                                                         :delete)
-  end
-
-  let(:valid_attributes) do
-    {
-      NumMedia: num_media,
-      MediaContentType0: 'image/jpeg',
-      MediaUrl0: 'https://c1.staticflickr.com/3/2899/14341091933_1e92e62d12_b.jpg'
-    }
-  end
-
-  describe "GET #index" do
-    it "returns a success response" do
+    before do
+      allow(MmsResource).to receive(:all) { files }
       get :index
-      expect(response).to be_success
     end
+
+    it 'assigns @files' do
+      expect(assigns(:files)).to eq(files)
+    end
+
+    it { is_expected.to respond_with :ok }
   end
 
-  describe "POST #create" do
-    context 'given numMedia is zero' do
-      let(:num_media) { 0 }
+  describe '#create' do
+    let(:twilio_request_params) do
+      {
+        NumMedia: 1,
+        MediaContentType0: 'image/jpeg',
+        MediaUrl0: 'https://example.com/Media/MEda193cc962923188f017d5bbc8ff119a',
+        MessageSid: 'MMd48e71771d0e65ec0db7964d261bc6ff'
+      }
+    end
 
-      it 'returns an invitation to send an image when numMedia parameter is zero'do
-        post :create, params: valid_attributes
-        expect(response.status).to eq(200)
-        expect(response.body).to include('Send us an image')
+    before do |example|
+      expect_any_instance_of(Twilio::REST::Client)
+        .to receive_message_chain(:api, :accounts, :messages, :media, :delete)
+      unless example.metadata[:skip_on_before]
+        post :create, params: twilio_request_params
       end
     end
 
-    context 'given numMedia is 1' do
-      let(:num_media) { 1 }
-
-      it 'returns an Thank you for the images when numMedia paramter > 0' do
-        post :create, params: valid_attributes
-        expect(response.status)
-        expect(response.body).to include('Thanks for the 1 images')
-      end
-
-      it 'deletes media from twilio server' do
-        expect(Twilio::REST::Client).to receive_message_chain(:new,
-                                                              :api,
-                                                              :accounts,
-                                                              :messages,
-                                                              :media,
-                                                              :delete)
-        post :create, params: valid_attributes
-      end
+    it 'saves the resource to the database', :skip_on_before do
+      expect { post :create, params: twilio_request_params }
+        .to change(MmsResource, :count).by(1)
     end
 
-    context 'given numMedia is bigger than 1' do
-      let(:num_media) { 2 }
-      let(:multiple_resources) do
-        {
-          MediaContentType1: 'image/jpeg',
-          MediaUrl1: 'https://c1.staticflickr.com/3/2899/14341091933_1e92e62d12_b.jpg'
-        }.merge(valid_attributes)
-      end
-
-      it 'saves multiple media resources' do
-        expect { post :create, params: multiple_resources }
-          .to change(MmsResource, :count).by(2)
-      end
+    it 'responds with a message' do
+      expect(response.body).to include('Thanks for the images')
     end
+
+    it { is_expected.to respond_with :ok }
   end
 end

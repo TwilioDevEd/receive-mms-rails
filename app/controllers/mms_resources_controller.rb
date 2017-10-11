@@ -1,34 +1,35 @@
 class MmsResourcesController < ApplicationController
   def index
-    @twilio_number = ENV['TWILIO_NUMBER']
+    @twilio_number = ENV.fetch('TWILIO_NUMBER')
     @files = MmsResource.all
   end
 
   def create
-    (0..num_media-1).each do |index|
-      media_url = params["MediaUrl#{index}"]
-      file_type = params["MediaContentType#{index}"]
-      message_sid = params["MessageSid"]
-      mms_resource = MmsResource.new(filename: file_name(media_url, file_type))
-
-      mms_resource.save
-      delete_media(message_sid, media_url)
+    (0..num_media - 1).each do |index|
+      media_url    = params["MediaUrl#{index}"]
+      content_type = params["MediaContentType#{index}"]
+      message_sid  = params["MessageSid"]
+      mms_resource = MmsResource.new(filename: file_name(media_url, content_type))
+      delete_media(message_sid, media_url) if mms_resource.save
     end
 
-    message = num_media <= 0 ? 'Send us an image' : 'Thanks for the 1 images'
+    message = num_media.zero? ? 'Send us an image' : 'Thanks for the images'
     response = Twilio::TwiML::MessagingResponse.new do |r|
       r.message(message: message)
     end
-
-    render xml: response.to_s
+    render xml: response.to_xml
   end
 
   private
 
-  def delete_media(message_sid, media_url, repetition=0)
-    twilio_client.api.accounts(ENV['TWILIO_ACCOUNT_SID'])
+  def twilio_client
+    Twilio::REST::Client.new(ENV.fetch('TWILIO_ACCOUNT_SID'), ENV.fetch('TWILIO_AUTH_TOKEN'))
+  end
+
+  def delete_media(message_sid, media_url, repetition = 0)
+    twilio_client.api.accounts(ENV.fetch('TWILIO_ACCOUNT_SID'))
       .messages(message_sid)
-      .media(resource_id(media_url))
+      .media(media_id(media_url))
       .delete
   rescue Twilio::REST::RestError => error
     raise error if repetition >= 4
@@ -39,23 +40,15 @@ class MmsResourcesController < ApplicationController
     params["NumMedia"].to_i
   end
 
-  def media_url
-  end
-
   def file_name(media_url, file_type)
-    "#{resource_id(media_url)}#{file_extension(file_type)}"
+    "#{media_id(media_url)}#{file_extension(file_type)}"
   end
 
   def file_extension(media_type)
     Rack::Mime::MIME_TYPES.invert[media_type]
   end
 
-  def resource_id(media_url)
-    uri = URI.parse(media_url)
-    File.basename(uri.path)
-  end
-
-  def twilio_client
-    @_client ||= Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+  def media_id(media_url)
+    URI(media_url).path.split('/').last
   end
 end

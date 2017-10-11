@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'twilio-ruby', '~> 5.0.0.rc24'
+gem 'twilio-ruby', '~> 5.3.1'
 gem 'rspec-rails'
 gem 'twitter-bootstrap-rails'
 
@@ -42,6 +42,10 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
