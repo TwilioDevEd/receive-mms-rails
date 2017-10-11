@@ -10,18 +10,17 @@ class MmsResourcesController < ApplicationController
       file_type = params["MediaContentType#{index}"]
       message_sid = params["MessageSid"]
       mms_resource = MmsResource.new(filename: file_name(media_url, file_type))
-      IO.copy_stream(open(media_url), mms_resource.path)
 
       mms_resource.save
-
       delete_media(message_sid, media_url)
     end
 
     message = num_media <= 0 ? 'Send us an image' : 'Thanks for the 1 images'
-    response = Twilio::TwiML::MessagingResponse.new
-    response.message message
+    response = Twilio::TwiML::MessagingResponse.new do |r|
+      r.message(message: message)
+    end
 
-    render xml: response.to_xml_str
+    render xml: response.to_s
   end
 
   private
@@ -33,8 +32,7 @@ class MmsResourcesController < ApplicationController
       .delete
   rescue Twilio::REST::RestError => error
     raise error if repetition >= 4
-    sleep 10
-    delete_media(message_sid, media_url, repetition+1)
+    delete_media(message_sid, media_url, repetition + 1)
   end
 
   def num_media
