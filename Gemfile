@@ -14,7 +14,8 @@ gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 
 gem 'retriable', '~> 3.1'
-gem 'twilio-ruby', '~> 5.3.1'
+gem 'listen', '~> 3.0'
+gem 'twilio-ruby', '~> 5.10.3'
 gem 'twitter-bootstrap-rails'
 
 group :development, :test do
