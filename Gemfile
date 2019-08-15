@@ -9,7 +9,7 @@ gem 'rails', '~> 5.1.2'
 gem 'coffee-rails', '~> 4.2'
 gem 'sass-rails', '~> 5.0'
 
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.1'
 gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 
