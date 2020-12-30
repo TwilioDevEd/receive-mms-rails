@@ -16,7 +16,7 @@ gem 'turbolinks', '~> 5'
 gem 'retriable', '~> 3.1'
 gem 'listen', '~> 3.0'
 gem 'twilio-ruby', '~> 5.10.3'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '>= 4.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
