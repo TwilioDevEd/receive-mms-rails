@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class MmsResourcesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @twilio_number = ENV.fetch('TWILIO_NUMBER')
     @files = MmsResource.all
@@ -12,13 +14,15 @@ class MmsResourcesController < ApplicationController
       content_type = params["MediaContentType#{index}"]
       message_sid  = params["MessageSid"]
       mms_resource = MmsResource.new(filename: file_name(media_url, content_type))
-      IO.copy_stream(open(media_url), mms_resource.path)
-      delete_media(message_sid, media_url) if mms_resource.save
+      uri = URI.parse(media_url)
+      IO.copy_stream(uri.open, mms_resource.path)
+      # For development purposes, this will make an async call to delete the media when it is received
+      Concurrent::Future.execute{ delete_media(message_sid, media_url) if mms_resource.save }
     end
 
-    message = num_media.zero? ? 'Send us an image' : 'Thanks for the images'
     response = Twilio::TwiML::MessagingResponse.new do |r|
-      r.message(message: message)
+      body = num_media > 0 ? "Thanks for sending us #{num_media} file(s)!" : 'Send us an image!'
+      r.message body: body
     end
     render xml: response.to_xml
   end
@@ -30,12 +34,13 @@ class MmsResourcesController < ApplicationController
   end
 
   def delete_media(message_sid, media_url, repetition = 0)
-    Retriable.retriable(on: Twilio::REST::RestError, tries: 4, base_interval: 2) do
+    Retriable.retriable(on: Twilio::REST::RestError, tries: 6, base_interval: 2) do
       twilio_client.api.accounts(ENV.fetch('TWILIO_ACCOUNT_SID'))
         .messages(message_sid)
         .media(media_id(media_url))
         .delete
     end
+    puts "MEDIA DELETED!"
   end
 
   def num_media
