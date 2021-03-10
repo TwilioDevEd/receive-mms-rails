@@ -23,7 +23,7 @@ RSpec.describe MmsResource, type: :model do
   describe '#path' do
     it 'returns path for the local file' do
       resource = described_class.new(filename: 'test.jpg')
-      expect(resource.path).to eq('./public/test.jpg')
+      expect(resource.path).to eq('./storage/test.jpg')
     end
   end
 end

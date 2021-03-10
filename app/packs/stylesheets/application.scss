@@ -1,3 +1,14 @@
+@import "bootstrap";
+
+footer {
+  bottom: 10px;
+  text-align: center;
+
+  i {
+    color:#ff0000;
+  }
+}
+
 body {
   background-color: #fff;
   color: #333;
@@ -82,3 +93,4 @@ div {
 label {
   display: block;
 }
+

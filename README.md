@@ -1,11 +1,13 @@
-<a href="https://www.twilio.com">
-  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+<a  href="https://www.twilio.com">
+<img  src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg"  alt="Twilio"  width="250"  />
 </a>
-
+ 
 # Receive MMS: Process MMS messages received by the application using rails
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/receive-mms-rails.svg)](https://travis-ci.org/TwilioDevEd/receive-mms-rails)
-[![Coverage Status](https://coveralls.io/repos/github/TwilioDevEd/receive-mms-rails/badge.svg?branch=master)](https://coveralls.io/github/TwilioDevEd/receive-mms-rails?branch=master)
+![](https://github.com/TwilioDevEd/receive-mms-rails/actions/workflows/build.yml/badge.svg)
+![](https://coveralls.io/repos/github/TwilioDevEd/receive-mms-rails/badge.svg?branch=main)
+
+## About
 
 Use Twilio to receive SMS and MMS messages. For a step-by-step tutorial see the
 <a href="https://www.twilio.com/docs/guides/receive-and-download-images-incoming-mms-messages-ruby-rails">Twilio docs</a>.
@@ -18,7 +20,7 @@ Learn more about HTTP authentication [here](https://www.twilio.com/docs/usage/se
 
 ## Local development
 
-This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework.
+This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework and NodeJS to serve assets through Webpack.
 
 1. First clone this repository and `cd` into it
 
@@ -27,10 +29,16 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
    $ cd receive-mms-rails
    ```
 
-1. Install the dependencies
+1. Install Rails dependencies
 
    ```bash
    $ bundle install
+   ```
+
+1. Install Node dependencies
+
+   ```bash
+   $ npm install
    ```
 
 1. Copy the sample configuration file and edit it to match your configuration
@@ -40,16 +48,14 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
    ```
 
    You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
-   [Twilio Account Settings](https://www.twilio.com/user/account/settings).  You
+   [Twilio Account Settings](https://www.twilio.com/console).  You
    will also need a `TWILIO_NUMBER`, which you may find
-   [here](https://www.twilio.com/user/account/phone-numbers/incoming).
-
-   Run `source .env` to export the environment variables
+   [here](https://www.twilio.com/console/phone-numbers/incoming).
 
 1. Create database and run migrations
 
    ```bash
-   $ bundle exec rake db:setup
+   $ bundle exec rails db:setup
    ```
 
 1. Make sure the tests succeed
@@ -99,5 +105,5 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
 ## Meta
 
 * No warranty expressed or implied. Software is as is. Diggity.
-* [MIT License](http://www.opensource.org/licenses/mit-license.html)
+* [MIT License](LICENSE)
 * Lovingly crafted by Twilio Developer Education.

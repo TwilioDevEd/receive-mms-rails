@@ -13,7 +13,9 @@ describe MmsResourcesController, type: :controller do
       expect(assigns(:files)).to eq(files)
     end
 
-    it { is_expected.to respond_with :ok }
+    it 'returns a 200' do
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe '#create' do
@@ -37,12 +39,8 @@ describe MmsResourcesController, type: :controller do
     it 'saves the resource to the database', :skip_on_before do
       expect { post :create, params: twilio_request_params }
         .to change(MmsResource, :count).by(1)
+      expect(response.body).to include('Thanks for sending us 1 file(s)!')
+      expect(response).to have_http_status(:ok)
     end
-
-    it 'responds with a message' do
-      expect(response.body).to include('Thanks for the images')
-    end
-
-    it { is_expected.to respond_with :ok }
   end
 end

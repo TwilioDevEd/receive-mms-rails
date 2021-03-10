@@ -4,6 +4,6 @@ class MmsResource < ApplicationRecord
   end
 
   def path
-    "./public/#{filename}"
+    "./storage/#{filename}"
   end
 end
