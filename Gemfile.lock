@@ -102,7 +102,7 @@ GEM
       activesupport (>= 5.0.0)
     json (2.5.1)
     jwt (2.2.2)
-    listen (3.4.1)
+    listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.9.1)
@@ -263,7 +263,7 @@ DEPENDENCIES
   coveralls
   dotenv-rails
   jbuilder (~> 2.7)
-  listen (~> 3.3)
+  listen (~> 3.5)
   pg
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
