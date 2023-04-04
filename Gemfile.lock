@@ -66,7 +66,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    autoprefixer-rails (10.4.7.0)
+    autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -121,7 +121,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.1)
@@ -164,7 +164,7 @@ GEM
       rack (>= 1.2.0)
     rack-proxy (0.7.6)
       rack
-    rack-test (2.0.2)
+    rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.4.3)
       actioncable (= 7.0.4.3)
@@ -201,14 +201,14 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     retriable (3.1.2)
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec-core (3.12.1)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.1)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.5)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
+      rspec-support (~> 3.12.0)
     rspec-rails (6.0.1)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
@@ -217,7 +217,7 @@ GEM
       rspec-expectations (~> 3.11)
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
-    rspec-support (3.11.1)
+    rspec-support (3.12.0)
     ruby2_keywords (0.0.4)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -236,9 +236,9 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
     spring (4.1.1)
-    sprockets (4.1.1)
+    sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
+      rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
@@ -247,7 +247,7 @@ GEM
     term-ansicolor (1.7.1)
       tins (~> 1.0)
     thor (1.2.1)
-    tilt (2.0.11)
+    tilt (2.1.0)
     timeout (0.3.2)
     tins (1.28.0)
       sync
@@ -284,7 +284,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
-  bootstrap (~> 5.2)
+  bootstrap (~> 5.2, >= 5.2.3)
   byebug
   coveralls
   dotenv-rails
@@ -292,8 +292,8 @@ DEPENDENCIES
   listen (~> 3.8)
   pg
   puma (~> 6.2)
-  rack-mini-profiler (~> 3.0)
-  rails (~> 7.0.4)
+  rack-mini-profiler (~> 3.0, >= 3.0.0)
+  rails (~> 7.0.4, >= 7.0.4.3)
   rails-controller-testing
   retriable (~> 3.1)
   rspec-rails
@@ -301,11 +301,11 @@ DEPENDENCIES
   turbolinks (~> 5)
   twilio-ruby (~> 5.55)
   tzinfo-data
-  web-console (>= 4.1.0)
-  webpacker (~> 5.4)
+  web-console (>= 4.2.0)
+  webpacker (~> 5.4, >= 5.4.4)
 
 RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.6
+   2.2.3
