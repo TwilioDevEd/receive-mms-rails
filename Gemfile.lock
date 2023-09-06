@@ -258,7 +258,7 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2020.6)
       tzinfo (>= 1.0.0)
-    web-console (4.2.0)
+    web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
