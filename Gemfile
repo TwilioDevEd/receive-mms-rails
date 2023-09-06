@@ -13,7 +13,7 @@ gem 'webpacker', '~> 5.4'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
