@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.4'
+gem 'rails', '~> 7.0.8', '>= 7.0.8.5'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 6.3'
@@ -43,6 +43,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "twilio-ruby", "~> 5.55"
-gem "bootstrap", "~> 5.3"
+gem "bootstrap", "~> 5.3", ">= 5.3.2"
 
 gem "retriable", "~> 3.1"
